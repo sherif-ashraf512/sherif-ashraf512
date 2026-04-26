@@ -22,8 +22,8 @@ jobs:
       - name: Update activity file
         run: |
           echo "Last Activity: $(date)" > activity.txt
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "Sherif Ashraf"
+          git config --global user.email "sherifashraf51203@gmail.com"
           git add activity.txt
           git commit -m "activity update" || echo "No changes"
           git push origin main
