@@ -33,6 +33,8 @@ jobs:
         uses: abozanona/pacman-contribution-graph@main
         with:
           github_user_name: sherif-ashraf512
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # رفع الصورة لفرع output
       - name: push to output branch
