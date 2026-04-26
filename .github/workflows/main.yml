@@ -1,8 +1,8 @@
-name: Generate Contribution Snake
+name: Generate Pacman Game
 
 on:
   schedule:
-    - cron: "0 */2 * * *" # كل ساعتين
+    - cron: "0 */2 * * *" # كل 4 ساعات
   workflow_dispatch:
   push:
     branches:
@@ -13,34 +13,29 @@ jobs:
     permissions:
       contents: write
     runs-on: ubuntu-latest
-    timeout-minutes: 5
     
     steps:
-      # 1. سحب الكود
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # 2. تحديث ملف لضمان المربعات الخضراء (الـ Green Dots)
+      # خطوة الـ Commit اليومي عشان تضمن المربعات الخضراء تزيد
       - name: Update activity file
         run: |
           echo "Last Activity: $(date)" > activity.txt
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add activity.txt
-          git commit -m "chore: update activity" || echo "No changes"
+          git commit -m "daily activity update" || echo "No changes"
           git push origin main
 
-      # 3. توليد لعبة الثعبان/باكمان (الأكشن ده بيمسح البروفايل كله صح)
-      - name: generate-snake-game-from-github-contribution-grid
-        uses: Platane/snk@v3
+      # توليد لعبة باكمان (تأكد من كتابة اسم اليوزر صح)
+      - name: generate pacman-contribution-graph.svg
+        uses: abozanona/pacman-contribution-graph@main
         with:
           github_user_name: sherif-ashraf512
-          outputs: |
-            dist/github-contribution-grid-snake.svg
-            dist/github-contribution-grid-snake-dark.svg?palette=github-dark
 
-      # 4. رفع الملفات لفرع الـ output
-      - name: push github-contribution-grid-snake.svg to the output branch
+      # رفع الصورة لفرع output
+      - name: push to output branch
         uses: crazy-max/ghaction-github-pages@v3.1.0
         with:
           target_branch: output
