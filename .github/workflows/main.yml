@@ -16,9 +16,8 @@ jobs:
     
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v6.1.0
 
-      # خطوة الـ Commit اليومي عشان تضمن المربعات الخضراء تزيد
       - name: Update activity file
         run: |
           echo "Last Activity: $(date)" > activity.txt
@@ -28,7 +27,7 @@ jobs:
           git commit -m "activity update" || echo "No changes"
           git push origin main
 
-      # توليد لعبة باكمان (تأكد من كتابة اسم اليوزر صح)
+      # توليد لعبة باكمان
       - name: generate pacman-contribution-graph.svg
         uses: abozanona/pacman-contribution-graph@main
         with:
